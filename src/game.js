@@ -496,6 +496,7 @@ function pauseGame() {
   playPauseImg.src = "https://cdn-icons-png.flaticon.com/512/3318/3318660.png";
   console.log("Game paused");
   cancelAnimationFrame(animationId);
+  audioElement.pause();
 }
 
 function resumeGame() {
@@ -503,6 +504,9 @@ function resumeGame() {
   playPauseImg.src =
     "https://www.pngarts.com/files/4/Pause-Button-PNG-Free-Download.png";
   console.log("Game resumed");
+  audioElement.play().catch((error) => {
+    console.warn("Audio playback blocked or failed to resume:", error);
+  });
   animate();
 }
 
