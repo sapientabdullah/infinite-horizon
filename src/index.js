@@ -34,13 +34,6 @@ document
         : "Hide Leaderboard";
   });
 
-document
-  .getElementById("close-leaderboard")
-  .addEventListener("click", function () {
-    document.getElementById("leaderboard").style.display = "none";
-    document.getElementById("leaderboard-btn").textContent = "Show Leaderboard";
-  });
-
 function fetchLeaderboard() {
   const leaderboardRef = ref(database, "players");
   get(leaderboardRef)
@@ -69,8 +62,22 @@ function displayLeaderboard(leaderboard) {
   leaderboardList.innerHTML = "";
 
   leaderboard.forEach((player, index) => {
+    const playerScore = player.score || 0;
+    const scoreDisplay = playerScore !== 0 ? `${playerScore}s` : playerScore;
     const playerElement = document.createElement("div");
-    playerElement.textContent = `${index + 1}. ${player.name}: ${player.score}`;
+
+    let rankClass = "other";
+    if (index === 0) {
+      rankClass = "first";
+    } else if (index === 1) {
+      rankClass = "second";
+    } else if (index === 2) {
+      rankClass = "third";
+    }
+
+    playerElement.textContent = `${index + 1}. ${player.name}: ${scoreDisplay}`;
+    playerElement.classList.add(rankClass);
+
     leaderboardList.appendChild(playerElement);
   });
 }

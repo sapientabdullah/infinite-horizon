@@ -167,8 +167,8 @@ form {
 
 #leaderboard {
   display: none;
-  /* Hidden by default */
   position: absolute;
+  z-index: 10;
   top: 50px;
   left: 50%;
   transform: translateX(-50%);
@@ -190,6 +190,39 @@ form {
   max-height: 300px;
   overflow-y: auto;
   color: white;
+}
+
+#leaderboard-list {
+  margin-top: 20px;
+}
+
+#leaderboard-list div {
+  font-size: 18px;
+  padding: 5px;
+  margin: 5px 0;
+  border-radius: 5px;
+  background-color: #f0f0f0;
+  text-align: center;
+}
+
+#leaderboard-list .first {
+  background-color: #FFD700;
+  color: white;
+}
+
+#leaderboard-list .second {
+  background-color: #C0C0C0;
+  color: white;
+}
+
+#leaderboard-list .third {
+  background-color: #CD7F32;
+  color: white;
+}
+
+#leaderboard-list .other {
+  background-color: #f0f0f0;
+  color: black;
 }
 
 #heading-img {
