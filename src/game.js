@@ -94,10 +94,17 @@ let isPaused = false;
 let frames = 0;
 let timeScale = 1.0;
 let spawnRate = 15;
+let survivedTime = 0;
 let cubeVelocity = 0.15;
 let enemyVelocity = 0.3;
 let startTime = Date.now();
-let survivedTime = 0;
+const audioElement = new Audio("../public/audio/music.mp3");
+audioElement.loop = true;
+
+let audioContext;
+let audioSource;
+let lowPassFilter;
+let gainNode;
 
 class Box extends THREE.Mesh {
   constructor({
@@ -575,13 +582,10 @@ function animate() {
 }
 animate();
 
-const audioElement = new Audio("../public/audio/music.mp3");
-audioElement.loop = true;
-
-let audioContext;
-let audioSource;
-let lowPassFilter;
-let gainNode;
+window.addEventListener("load", () => {
+  setupAudioContext();
+  toggleAudioPlayPause();
+});
 
 function setupAudioContext() {
   if (!audioContext) {
@@ -611,14 +615,14 @@ function toggleAudioPlayPause() {
       .play()
       .then(() => {
         document.getElementById("audio-img").src =
-          "https://cdn4.iconfinder.com/data/icons/mosaicon-05/512/nosound-512.png";
+          "https://cdn-icons-png.flaticon.com/512/786/786373.png";
         console.log("Audio started playing.");
       })
       .catch((error) => console.warn("Autoplay blocked:", error));
   } else {
     audioElement.pause();
     document.getElementById("audio-img").src =
-      "https://cdn-icons-png.flaticon.com/512/786/786373.png";
+      "https://cdn4.iconfinder.com/data/icons/mosaicon-05/512/nosound-512.png";
   }
 }
 
