@@ -9,12 +9,8 @@ body {
   width: 100%;
   height: 100%;
   overflow: hidden;
-}
-
-#home {
-  position: absolute;
-  top: 10%;
-  left: 5%;
+  --clr-primary: #51b8fd;
+  --clr-secondary: #1c1624;
 }
 
 #audio-play-pause-btn,
@@ -38,6 +34,11 @@ body {
 #game-play-pause-btn {
   top: 3%;
   left: 3%;
+}
+
+#audio-play-pause-btn:hover,
+#game-play-pause-btn:hover {
+  background-color: rgba(255, 255, 255, 0.4);
 }
 
 #play-pause-img,
@@ -70,48 +71,53 @@ body {
   font-family: "Rajdhani", monospace;
   z-index: 10;
   user-select: none;
+  gap: 50px;
 }
 
-#game-over-overlay h1 {
-  font-size: 3rem;
-  margin-bottom: 1rem;
-}
 
 #game-over-overlay p {
   font-size: 1.5rem;
-  margin-bottom: 2rem;
 }
 
-#game-over-overlay button {
-  padding: 0.5rem 2rem;
-  font-size: 1.25rem;
-  font-family: "Rajdhani", monospace;
-  cursor: pointer;
-  background: #51b8fd;
-  border: none;
-  color: white;
-  border-radius: 5px;
+#game-over-img {
+  width: 20%;
+  height: auto;
 }
 
-#game-over-overlay button:hover {
-  background: #0284c7;
-}
-
-#game-over-overlay a {
-  padding: 0.5rem 2rem;
-  font-size: 1.25rem;
-  font-family: "Rajdhani", monospace;
-  cursor: pointer;
-  background: #51b8fd;
-  border: none;
-  color: white;
-  border-radius: 5px;
-  text-align: center;
+#home {
   text-decoration: none;
-  margin-top: 1rem;
-  display: inline-block;
 }
 
-#game-over-overlay a:hover {
-  background: #0284c7;
+#game-over-overlay div {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  justify-content: center;
+}
+
+#restart-btn img,
+#home img {
+  width: 12px;
+  height: auto;
+  margin-right: 5px;
+}
+
+.btn {
+  cursor: pointer;
+  padding: 0.5em 2.5em;
+  font: inherit;
+  font-weight: 700;
+  color: var(--clr-secondary);
+  border: 2px solid transparent;
+  background-color: var(--clr-primary);
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  transition: color 250ms, border-color 250ms, background-color 250ms,
+    clip-path 500ms ease-in-out var(--delay);
+}
+
+.btn:focus,
+.btn:hover {
+  color: var(--clr-primary);
+  border-color: var(--clr-primary);
+  background-color: transparent;
 }
