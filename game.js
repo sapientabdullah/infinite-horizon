@@ -99,7 +99,7 @@ let survivedTime = 0;
 let cubeVelocity = 0.15;
 let enemyVelocity = 0.3;
 let startTime = Date.now();
-const audioElement = new Audio("../public/audio/music.mp3");
+const audioElement = new Audio("/public/audio/music.mp3");
 audioElement.loop = true;
 let animationId;
 
@@ -278,7 +278,7 @@ const cubeConfig = {
   velocity: { x: 0, y: -0.01, z: 0 },
   zAcceleration: false,
 };
-const cube = createCubeWithModel("../public/spaceship/scene.gltf", cubeConfig);
+const cube = createCubeWithModel("/public/spaceship/scene.gltf", cubeConfig);
 cube.material = new THREE.MeshBasicMaterial({
   opacity: 0,
   transparent: true,
@@ -380,7 +380,7 @@ window.addEventListener("keyup", (event) => {
   }
 });
 
-const starsTextureUrl = "../public/background.jpg";
+const starsTextureUrl = "/public/background.jpg";
 const cubeTextureLoader = new THREE.CubeTextureLoader();
 scene.background = cubeTextureLoader.load([
   starsTextureUrl,
