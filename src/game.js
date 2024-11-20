@@ -9,6 +9,7 @@ import {
   getDatabase,
   ref,
   set,
+  get,
 } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-database.js";
 
 const firebaseConfig = {
@@ -100,11 +101,55 @@ let enemyVelocity = 0.3;
 let startTime = Date.now();
 const audioElement = new Audio("../public/audio/music.mp3");
 audioElement.loop = true;
+let animationId;
 
 let audioContext;
 let audioSource;
 let lowPassFilter;
 let gainNode;
+
+function updateScore() {
+  const playerName = localStorage.getItem("playerName");
+  const playerScore = survivedTime;
+
+  if (!playerName) {
+    console.log("Player name is not set.");
+    return;
+  }
+
+  const playerScoreRef = ref(database, "players/" + playerName + "/score");
+
+  get(playerScoreRef)
+    .then((snapshot) => {
+      if (snapshot.exists()) {
+        const existingScore = snapshot.val();
+        if (playerScore > existingScore) {
+          set(playerScoreRef, playerScore)
+            .then(() => {
+              console.log("Score updated successfully!");
+            })
+            .catch((error) => {
+              console.error("Error updating score:", error);
+            });
+        } else {
+          console.log(
+            "Existing score is higher or equal, no update necessary."
+          );
+        }
+      } else {
+        set(playerScoreRef, playerScore)
+          .then(() => {
+            console.log("No existing score. New score set successfully.");
+          })
+          .catch((error) => {
+            console.error("Error setting score:", error);
+          });
+      }
+    })
+    .catch((error) => {
+      console.error("Error fetching score:", error);
+    });
+}
 
 class Box extends THREE.Mesh {
   constructor({
@@ -495,7 +540,7 @@ function restartGame() {
 
 function animate() {
   if (isPaused) return;
-  const animationId = requestAnimationFrame(animate);
+  animationId = requestAnimationFrame(animate);
 
   cube.velocity.x = 0;
   cube.velocity.z = 0;
@@ -537,6 +582,7 @@ function animate() {
     ) {
       cancelAnimationFrame(animationId);
       isGameOver = true;
+      updateScore();
       timeElement.innerText = "";
       document.getElementById("final-time").innerText = survivedTime;
       document.getElementById("game-over-overlay").style.display = "flex";

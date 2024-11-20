@@ -105,6 +105,7 @@ const form = document.getElementById("send-it");
 document.getElementById("submit-name").addEventListener("click", () => {
   const name = document.getElementById("name").value;
   if (name) {
+    localStorage.setItem("playerName", name);
     const userRef = ref(database, "players/" + name);
     set(userRef, {
       name: name,
