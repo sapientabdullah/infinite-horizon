@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Infinite Horizon is a 3D endless runner game.">
+  <link rel="icon" href="../public/favicon.ico" type="image/x-icon">
+  <title>Infinite Horizon</title>
+  <link rel="stylesheet" href="./index.css">
+</head>
+
+<body>
+
+  <canvas id="c"></canvas>
+  <img src="../public/heading.png" alt="Infinite Horizon" id="heading-img">
+  <div class="container">
+    <form id="send-it" class="being-sent">
+      <div class="inputbox hidden" style="--delay:100ms;">
+        <label for="name" class="placeholder">Name:</label>
+        <input id="name" class="input-text" type="text" minlength="3" required />
+      </div>
+    </form>
+    <button id="submit-name" class="btn hidden" style="--delay:400ms;"><img
+        src="https://icon-library.com/images/white-play-icon/white-play-icon-22.jpg">Play</button>
+  </div>
+
+  <div id="leaderboard" class="hidden">
+    <button id="close-leaderboard">Close</button>
+    <h2>Leaderboard</h2>
+    <div id="leaderboard-list">
+    </div>
+  </div>
+
+  <div>
+    <button id="leaderboard-btn" class="btn"><img
+        src="https://static-00.iconduck.com/assets.00/leaderboard-icon-512x462-ckhu7hyo.png">Show Leaderboard</button>
+    <button id="toggle-controls-btn" class="btn"><img
+        src="https://freepngimg.com/save/174931-pic-silhouette-gamepad-png-free-photo/981x688">Show
+      Controls</button>
+  </div>
+
+  <div id="controls-panel">
+    <h2>Game Controls</h2>
+    <ul>
+      <li><strong>W</strong> - Move Forward</li>
+      <li><strong>A</strong> - Move Left</li>
+      <li><strong>S</strong> - Move Backward</li>
+      <li><strong>D</strong> - Move Right</li>
+      <li><strong>Space</strong> - Jump</li>
+      <li><strong>Shift (Right)</strong> - Slow Motion</li>
+      <li><strong>P</strong> - Pause/Resume Game</li>
+      <li><strong>M</strong> - Toggle Mute/Unmute Audio</li>
+    </ul>
+  </div>
+
+
+
+  <script async src="https://unpkg.com/es-module-shims@1.6.3/dist/es-module-shims.js"></script>
+
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.161/build/three.module.js",
+      "jsm/": "https://cdn.jsdelivr.net/npm/three@0.161/examples/jsm/"
+    }
+  }
+</script>
+  <script type="module" src="./index.js"></script>
+</body>
+
+</html>

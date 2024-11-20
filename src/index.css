@@ -1,0 +1,251 @@
+@import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&display=swap');
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  --clr-white: #fff;
+  --clr-white-65: rgba(200, 200, 200, 0.65);
+  --clr-light-gray: #c8c8c8;
+  --clr-green: hsl(142, 98%, 48%);
+  --clr-red: #ff3f1d;
+  --clr-primary: #51b8fd;
+  --clr-secondary: #1c1624;
+
+  display: grid;
+  place-items: center;
+  min-height: 100vh;
+  position: relative;
+  font-family: "Rajdhani", sans-serif;
+  background-color: var(--clr-secondary);
+}
+
+form {
+  width: 50vw;
+  max-width: 300px;
+  min-width: 200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5em;
+}
+
+.input-text,
+.input-email {
+  font: inherit;
+  width: 100%;
+  padding: 0.75em;
+  padding-left: calc(5ch + 0.75em);
+  border: none;
+  border-left: 2px solid transparent;
+  background-color: var(--clr-white-65);
+  transition: border 250ms;
+}
+
+.input-text:focus,
+.input-email:focus {
+  outline: none;
+  border-left: 2px solid var(--clr-primary);
+}
+
+.input-text:valid,
+.input-email:valid {
+  outline: none;
+  border-left: 2px solid var(--clr-green);
+}
+
+.inputbox {
+  position: relative;
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  transition: clip-path 500ms ease-in-out var(--delay);
+}
+
+.placeholder {
+  text-transform: capitalize;
+  color: var(--clr-light-gray);
+  font-weight: 600;
+  position: absolute;
+  top: 50%;
+  left: 0.5em;
+  transform: translateY(-50%);
+  z-index: 2;
+  pointer-events: none;
+  transition: color 250ms;
+}
+
+.input-text:focus+.placeholder,
+.input-email:focus+.placeholder {
+  color: var(--clr-secondary);
+}
+
+.btn {
+  cursor: pointer;
+  padding: 0.5em 2.5em;
+  font: inherit;
+  font-weight: 700;
+  color: var(--clr-secondary);
+  border: 2px solid transparent;
+  background-color: var(--clr-primary);
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  transition: color 250ms, border-color 250ms, background-color 250ms,
+    clip-path 500ms ease-in-out var(--delay);
+}
+
+.btn:focus,
+.btn:hover {
+  color: var(--clr-primary);
+  border-color: var(--clr-primary);
+  background-color: transparent;
+}
+
+#send-it {
+  position: relative;
+  /* animation-name: squiz; */
+  animation-name: clipit;
+  animation-delay: 150ms;
+  animation-duration: 1s;
+  animation-fill-mode: forwards;
+  animation-play-state: paused;
+  margin-bottom: 50px;
+}
+
+@keyframes clipit {
+  from {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+    opacity: 1;
+  }
+
+  75% {
+    clip-path: polygon(49.5% 0, 50.5% 0, 50.5% 100%, 49.5% 100%);
+    opacity: 0.90;
+  }
+
+  to {
+    clip-path: polygon(49.5% 0, 50.5% 0, 50.5% 100%, 49.5% 100%);
+    opacity: 0;
+  }
+}
+
+@keyframes sending {
+  from {
+    height: 0;
+    transform: translate(-50%, -50%);
+  }
+
+  15% {
+    transform: translate(-50%, -50%);
+  }
+
+  25% {
+    height: 200px;
+  }
+
+  to {
+    height: 200px;
+    transform: translate(-50%, -110vh);
+  }
+}
+
+.hidden {
+  clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+}
+
+#c {
+  display: block;
+  position: absolute;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 1500ms ease-out;
+}
+
+#leaderboard {
+  display: none;
+  /* Hidden by default */
+  position: absolute;
+  top: 50px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 20px;
+  border-radius: 10px;
+  width: 80%;
+  max-width: 400px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
+}
+
+#leaderboard h2 {
+  text-align: center;
+}
+
+#leaderboard-list {
+  margin-top: 20px;
+  max-height: 300px;
+  overflow-y: auto;
+  color: white;
+}
+
+#heading-img {
+  width: 50%;
+  height: auto;
+}
+
+.container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  z-index: 10;
+}
+
+#controls-panel {
+  position: fixed;
+  top: 5%;
+  right: 5%;
+  background-color: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 20px;
+  width: 250px;
+  height: 100%;
+  overflow-y: scroll;
+  display: none;
+}
+
+#controls-panel h2 {
+  margin-top: 0;
+}
+
+#controls-panel ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+#controls-panel li {
+  margin: 10px 0;
+}
+
+#leaderboard-btn {
+  margin-right: 5px;
+}
+
+#leaderboard-btn img,
+#toggle-controls-btn img {
+  width: 15px;
+  height: auto;
+  margin-right: 5px;
+}
+
+#submit-name img {
+  width: 11px;
+  height: auto;
+  margin-top: 1px;
+  margin-right: 5px;
+}
