@@ -24,6 +24,28 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const database = getDatabase(app);
+let isLoading = true;
+
+const loadingManager = new THREE.LoadingManager();
+
+loadingManager.onStart = () => {
+  document.getElementById("loading-screen").style.display = "flex";
+};
+
+loadingManager.onLoad = () => {
+  isLoading = false;
+  startTime = Date.now();
+  document.getElementById("loading-screen").style.display = "none";
+  animate();
+};
+
+loadingManager.onProgress = (url, itemsLoaded, itemsTotal) => {
+  console.log(`Loaded ${itemsLoaded} of ${itemsTotal} files.`);
+};
+
+loadingManager.onError = (url) => {
+  console.error(`Error loading ${url}`);
+};
 
 const scene = new THREE.Scene();
 scene.fog = new THREE.FogExp2(0x000000, 0.04);
@@ -245,7 +267,7 @@ function boxCollision({ box1, box2 }) {
   return xCollision && yCollision && zCollision;
 }
 
-const loader = new GLTFLoader();
+const loader = new GLTFLoader(loadingManager);
 function createCubeWithModel(modelUrl, cubeConfig) {
   const cube = new Box(cubeConfig);
   loader.load(
@@ -381,7 +403,7 @@ window.addEventListener("keyup", (event) => {
 });
 
 const starsTextureUrl = "/public/background.jpg";
-const cubeTextureLoader = new THREE.CubeTextureLoader();
+const cubeTextureLoader = new THREE.CubeTextureLoader(loadingManager);
 scene.background = cubeTextureLoader.load([
   starsTextureUrl,
   starsTextureUrl,
@@ -543,7 +565,7 @@ function restartGame() {
 }
 
 function animate() {
-  if (isPaused) return;
+  if (isPaused || isLoading) return;
   animationId = requestAnimationFrame(animate);
 
   cube.velocity.x = 0;
