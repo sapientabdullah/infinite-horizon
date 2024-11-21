@@ -373,7 +373,7 @@ window.addEventListener("keydown", (event) => {
       break;
     case "ShiftRight":
       timeScale = 0.3;
-      slowModeOverlay.material.uniforms.uOpacity.value = 0.04;
+      slowModeOverlay.material.uniforms.uOpacity.value = 0.05;
       muffleAudio();
       break;
   }
@@ -559,6 +559,11 @@ function restartGame() {
 
   document.getElementById("game-over-overlay").style.display = "none";
 
+  audioElement.currentTime = 0;
+  audioElement.play().catch((error) => {
+    console.warn("Audio playback blocked or failed to restart:", error);
+  });
+
   startTime = Date.now();
   isGameOver = false;
   animate();
@@ -609,6 +614,7 @@ function animate() {
       cancelAnimationFrame(animationId);
       isGameOver = true;
       updateScore();
+      audioElement.pause();
       timeElement.innerText = "";
       document.getElementById("final-time").innerText = survivedTime;
       document.getElementById("game-over-overlay").style.display = "flex";
